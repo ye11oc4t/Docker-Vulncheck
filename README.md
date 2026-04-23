@@ -65,7 +65,7 @@ kshieldjr-docker-vulncheck/
 sudo bash scripts/docker_vulncheck.sh | tee results/docker_vulncheck_result.txt
 ```
 
-점검 항목: D-01(최신 패치), D-02~D-07(audit 설정), D-08(네트워크), D-09~D-20(파일 권한), D-21~D-27(SSH/TLS/권한)
+점검 항목: D-01(최신 패치), D-02 - D-07(audit 설정), D-08(네트워크), D-09 - D-20(파일 권한), D-21 - D-27(SSH/TLS/권한)
 
 ---
 

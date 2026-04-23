@@ -1,0 +1,264 @@
+===========================[ root check START ]
+
+root OK
+
+===========================[ root check END ]
+
+=========================== Docker Security Check Script START ===========================
+
+===========================[ D-01 Docker latest patch START ]
+
+1. Docker Version
+Client: Docker Engine - Community
+ Version:           23.0.6
+ API version:       1.42
+ Go version:        go1.19.9
+ Git commit:        ef23cbc
+ Built:             Fri May  5 21:17:53 2023
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          23.0.6
+  API version:      1.42 (minimum version 1.12)
+  Go version:       go1.19.9
+  Git commit:       9dbdbd4
+  Built:            Fri May  5 21:17:53 2023
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.6.21
+  GitCommit:        3dce8eb055cbb6872793272b4f20ed16117344f8
+ runc:
+  Version:          1.1.7
+  GitCommit:        v1.1.7-0-g860f061
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+Client : 23 Server : 23
+Result : Good
+
+===========================[ D-01 Docker latest patch END ]
+===========================[ D-02 /usr/bin/docker audit START ]
+
+1. /usr/bin/docker audit
+-w /usr/bin/docker -p rwxa -k docker
+2. audit.rules file
+-w /usr/bin/docker -k docker
+Result : Good
+
+===========================[ D-02 Docker daemon audit END ]
+===========================[ D-03 /var/lib/docker audit START ]
+
+1. /var/lib/docker audit
+2. audit.rules file check
+Result : Vulnerable
+
+===========================[ D-03 /var/lib/docker audit END ]
+===========================[ D-04 /etc/docker audit START ]
+
+1. /etc/docker audit 
+2. audit.rules file check
+Result : Vulnerable
+
+===========================[ D-04 /etc/docker audit END ]
+===========================[ D-05 docker.service audit START ]
+
+1. docker.service audit
+1-1. docker.service path check
+1-2. docker.service audit check
+2. audit.rules file check
+Result : Vulnerable
+
+===========================[ D-05 docker.service END ]
+===========================[ D-06 docekr.socket audit START ]
+
+1. docker.socket audit
+1-1. docker.socket path check
+1-2. docker.socket audit check
+2. audit.rules file check
+Result : Vulnerable
+
+===========================[ D-06 docker.socket END ]
+===========================[ D-07 /etc/default/docker audit START ]
+
+1. /etc/default/docker audit 
+2. audit.rules file check
+Result : Vulnerable
+
+===========================[ D-07 /etc/default/docker audit END ]
+===========================[ D-08 Restrict network traffic between containers START ]
+
+1. Restrict network trattic between containers check
+bridge:
+map[com.docker.network.bridge.default_bridge:true com.docker.network.bridge.enable_icc:true com.docker.network.bridge.enable_ip_masquerade:true com.docker.network.bridge.host_binding_ipv4:0.0.0.0 com.docker.network.bridge.name:docker0 com.docker.network.driver.mtu:1500]
+host:
+map[]
+none:
+map[]
+The default Docker network is in use and has no restrictions.
+Result: Vulnerable
+
+===========================[ D-08 Restrict network traffic between containers END ]
+===========================[ D-09 docker.service file ownership START ]
+
+1. docker.service file path
+/lib/systemd/system/docker.service
+2. docker.service file ownership
+-rw-r--r-- 1 root root 1730 May  5 21:17 /lib/systemd/system/docker.service
+Result: Good
+
+===========================[ D-09 docker.service file ownership END ]
+===========================[ D-10 docker.service file access permission START ]
+
+1. docker.service file path
+/lib/systemd/system/docker.service
+2. docker.service file permission
+-rw-r--r-- 1 root root 1730 May  5 21:17 /lib/systemd/system/docker.service
+Result: Good
+
+===========================[ D-10 docker.service file access permission END ]
+===========================[ D-11 docker.socket file ownership START ]
+
+1. docker.socket file path
+/lib/systemd/system/docker.socket
+2. docker.socket file ownership
+-rw-r--r-- 1 root root 295 May  5 21:17 /lib/systemd/system/docker.socket
+Result: Good
+
+===========================[ D-11 docker.socket file ownership END ]
+===========================[ D-12 docker.socket file access permission START ]
+
+1. docker.socket file path
+/lib/systemd/system/docker.socket
+2. docker.socket file permission
+-rw-r--r-- 1 root root 295 May  5 21:17 /lib/systemd/system/docker.socket
+Result: Good
+
+===========================[ D-12 docker.socket file access perimission END ]
+===========================[ D-13 /etc/docker dir ownership START ]
+
+1. /etc/docker dir path
+/etc/docker
+2. /etc/docker dir ownership
+drwxr-xr-x 2 root root 4096 Apr 14 10:32 /etc/docker
+Result: Good
+
+===========================[ D-13 /etc/docker dir ownership END ]
+===========================[ D-14 /etc/docker dir access permission START ]
+
+1. /etc/docker dir path
+/etc/docker
+2. /etc/docker dir permission
+drwxr-xr-x 2 root root 4096 Apr 14 10:32 /etc/docker
+Result: Good
+
+===========================[ D-14 /etc/docker dir access permission END ]
+===========================[ D-15 /var/run/docker.sock file ownership START ]
+
+1. /var/run/docker.sock path
+/var/run/docker.sock
+2. /var/run/docker.sock file ownership
+srw-rw---- 1 root docker 0 May 15 13:40 /var/run/docker.sock
+Result: Good
+
+===========================[ D-15 /var/run/docker.sock file ownership END ]
+===========================[ D-16 /var/run/docker.sock access permission START ]
+
+1. /var/run/docker.sock path
+2. /var/run/docker.sock file permission
+srw-rw---- 1 root docker 0 May 15 13:40 /var/run/docker.sock
+Result: Good
+
+===========================[ D-16 /var/run/docker.sock access permission END ]
+===========================[ D-17 daemon.json file ownership START ]
+
+1. daemon.json file path
+daemon.json file not found.
+Result: Good
+
+===========================[ D-17 daemon.json file ownership END ]
+===========================[ D-18 daemon.json access permission START ]
+
+1. daemon.json file path
+daemon.json file not found.
+Result: Good
+
+===========================[ D-18 daemon.json access permission END ]
+===========================[ D-19 /etc/default/docker file ownership START ]
+
+1. /etc/default/docker path
+/etc/default/docker
+2. /etc/default/docker permission
+-rw-r--r-- 1 root root 654 Apr 14 10:30 /etc/default/docker
+Result: Good
+
+===========================[ D-19 /etc/default/docker file ownership END ]
+===========================[ D-20 /etc/default/docker file access permission START ]
+
+1. /etc/default/docker path
+/etc/default/docker
+2. /etc/default/docker permission
+-rw-r--r-- 1 root root 654 Apr 14 10:30 /etc/default/docker
+Result: Good
+
+===========================[ D-20 /etc/default/docker file access permission END]
+===========================[ D-21 SSH permission START ]
+
+1. SSH Active
+SSH active
+Result : Vulnerable
+
+===========================[ D-21 SSH permittion END ]
+===========================[ D-22 Host OS access control START ]
+
+1. Docker container list
+CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS                  PORTS                                       NAMES
+735744ddf291   mariadb              "docker-entrypoint.s…"   2 days ago   Up 2 days               0.0.0.0:3306->3306/tcp, :::3306->3306/tcp   mariadb
+80c836285f17   hello-world:latest   "/hello"                 2 days ago   Exited (0) 2 days ago                                               suspicious_panini
+2. Docker container mapped dir list
+Volumes=[{volume 27989277ed14377d94d94d715fcb49fafc633053d0997019a587115662f3775d /var/lib/docker/volumes/27989277ed14377d94d94d715fcb49fafc633053d0997019a587115662f3775d/_data /var/lib/mysql local  true }]
+Volumes=[]
+Result : Vulnerable
+
+===========================[ D-22 Host OS access control END ]
+===========================[ D-23 Authentication-Authorization control START ]
+
+1. docker gruop user
+docker:x:999:
+Result : Review
+
+===========================[ D-23 Authentication-Authorization control END ]
+===========================[ D-24 SSL/TLS appliance START ]
+
+1. tlsverify check
+
+--tlsverify --tlscacert --tlscert --tlskey USE NOT FOUND
+Result : Vulnerable
+
+===========================[ D-24 SSL/TLS appliance END ]
+===========================[ D-25 Container permission control START ]
+1. no-new-privileges check
+no-new-privileges NOT FOUND
+Result : Vulnerable
+
+===========================[ D-25 Container permission control END ]
+===========================[ D-26 Authentication control START ]
+
+1. Swarm check
+ Swarm: inactive
+Result : Good
+
+===========================[ D-26 Authentication control START ]
+===========================[ D-27 SSL/TLS appliance START ]
+
+1. tlsverity check
+
+--tlsverify --tlscacer --tlscert --tlskey NOT USE
+Result : Vulnerable
+
+===========================[ D-27 SSL/TLS appliance START ]
+
+=========================== Docker Security Check Script END ===========================
